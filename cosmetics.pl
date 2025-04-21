@@ -17,7 +17,7 @@ cosmetics(body_lotion, papaya, women, one_thousand_nine_hundred_rupees).
 cosmetics(goldern_beauty_face_cream, mineral_oil_and_cocova, unisex, three_thousand_seven_hundred_rupees).
 
 cosmetics(shampoo, hair_fall_rescue, women, one_thousand_eight_hundred_rupees).
-cosmetics(shampoo, intense_repaire, women, one_thousand_seven_hundred_fity_rupees).
+cosmetics(shampoo, intense_repaire, women, one_thousand_seven_hundred_fifty_rupees).
 cosmetics(shampoo, straight_and_silky, women, eight_hundred_rupees).
 cosmetics(shampoo, nourshine_oil_care, women, one_thousand_hundred_rupees).
 
@@ -26,7 +26,7 @@ cosmetics(shampoo, men_care_anti_dandruff, men, five_hundred_rupees).
 cosmetics(shampoo, men_thick_and_strong_fortify, men, one_thousand_eight_hundred_rupees).
 cosmetics(shampoo, acqua_impact_fortify, men, six_hundred_fifty_rupees).
 
-beauty_products(a):-cosmetics(a, b, men, c).
+beauty_products(A,B,C,D):-cosmetics(A, B, C, D).
 
 %cream types base on customer request
 display(Cream, Ingrediant, Sex, Price) :-
@@ -81,9 +81,77 @@ start_one:-
 
 	%is full fill the requirement?
 	(Item==3, DayCream, BodyLotion, Shampoo ->
-		write('You got thousand rupees discount. '), nl
+		write('You got thousand rupees discount. '), nl,
+
+		write('Total amount of the three item which you bought'),nl,
+		write('You can see what your is benificial category as below section. '),nl, 
+
+		AA is 2100 + 1300 + 1800 - 1000,nl,
+		AB is 2100 + 1300 + 1750 - 1000,nl,
+		AC is 2100 + 1300 + 800 - 1000,nl,
+		AD is 2100 + 1300 + 1100 - 1000,nl,
+		AE is 2100 + 1300 +600 - 1000,nl,
+		AF is 2100 + 1300 + 500 - 1000,nl,
+		AG is 2100 + 1300 + 1800 - 1000,nl,
+		AH is 2100 + 1300 + 650 - 1000,nl,
+
+		BA is 1900 + 1300 + 1800 - 1000,nl,
+		BB is 1900 + 1300 + 1750 - 1000,nl,
+		BC is 1900 + 1300 + 800 - 1000,nl,
+		BD is 1900 + 1300 + 1100 - 1000,nl,
+		BE is 1900 + 1300 +600 - 1000,nl,
+		BF is 1900 + 1300 + 500 - 1000,nl,
+		BG is 1900 + 1300 + 1800 - 1000,nl,
+		BH is 1900 + 1300 + 650 - 1000,nl,
+
+	
+		CA is 2000 + 1300 + 1800 - 1000,nl,
+		CB is 2000 + 1300 + 1750 - 1000,nl,
+		CC is 2000 + 1300 + 800 - 1000,nl,
+		CD is 2000 + 1300 + 1100 - 1000,nl,
+		CE is 2000 + 1300 +600 - 1000,nl,
+		CF is 2000 + 1300 + 500 - 1000,nl,
+		CG is 2000 + 1300 + 1800 - 1000,nl,
+		CH is 2000 + 1300 + 650 - 1000,nl,
+
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AA),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AB),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AC),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AD),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AE),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AF),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AG),nl,
+		write('Any other item which has included discount pack with Alovera Body Lotion -> Rs.'),write(AH),nl,nl,
+
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BA),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BB),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BC),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BD),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BE),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BF),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BG),nl,
+		write('Any other item which has included discount pack with Papaya Body Lotion -> Rs.'),write(BH),nl,nl,
+
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CA),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CB),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CC),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CD),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CE),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CF),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CG),nl,
+		write('Any other item which has included discount pack with Cucumber Body Lotion -> Rs.'),write(CH),nl
+
+
 	;
-		write('You are not eligible for our discount benifits. ')).
+		write('You are not eligible for our discount benifits. ')),nl,
+		
+	%Clean up dynamic facts
+	retractall(buy_full_package(_)),
+	retractall(buy_day_cream(_)),
+	retractall(buy_body_lotion(_)),
+	retractall(buy_shampoo(_)),
+
+	write('Thank you for shopping with Velora Products! ').
 	
 
 body_lotion(yes) :-
@@ -209,3 +277,11 @@ ask_customer_choice_two:-
 
 
 
+loop_from_to(Current, N, Total):-
+	Current =< N,
+	write('Enter your amount : '),
+	read(Amount),
+	M is Total + Amount,
+	write('The current total value is Rs. : '),write(M),nl,
+	Next is Current + 1,
+	loop_from_to(Next, N, M).
