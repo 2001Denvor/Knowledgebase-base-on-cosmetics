@@ -298,7 +298,7 @@ ask_customer_choice_two:-
 	write('Your might like '), write(Type),write(' '),write(Cleaner),write(' for '),write(Sex),write(' of Velora Brand.'),nl,
 	write('Price : '), write(Price).
 
-%Calculate total amount the customer should pay for the products which they boughts
+%Calculate total amount the customer should pay for the products which they bought
 
 loop_from_to(Current, N, Total):-
 	Current =< N,
