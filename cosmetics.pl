@@ -21,21 +21,37 @@ cosmetics(shampoo, intense_repaire, women, one_thousand_seven_hundred_fifty_rupe
 cosmetics(shampoo, straight_and_silky, women, eight_hundred_rupees).
 cosmetics(shampoo, nourshine_oil_care, women, one_thousand_hundred_rupees).
 
-cosmetics(shampoo, men_care_fresh_and_clean_fortifying, men, six_hundred_rupees).
+cosmetics(shampoo, men_care_fresh, men, six_hundred_rupees).
 cosmetics(shampoo, men_care_anti_dandruff, men, five_hundred_rupees).
 cosmetics(shampoo, men_thick_and_strong_fortify, men, one_thousand_eight_hundred_rupees).
 cosmetics(shampoo, acqua_impact_fortify, men, six_hundred_fifty_rupees).
 
-beauty_products(A,B,C,D):-cosmetics(A, B, C, D).
+
+%Welcome Velora Company
+
+begin:-
+	nl,
+	write('====Welcome to our Velora Products====').
+
+%Searching the velora products
+
+beauty_products(Product, Type, Gender, Price):-cosmetics(Product, Type, Gender, Price).
+
 
 %cream types base on customer request
+
 display(Cream, Ingrediant, Sex, Price) :-
 	cosmetics(Cream, Ingrediant, Sex, Price).
 
+
 %show cream type if they belong to either day cream or night cream
+
 display(Cream, Ingrediant, Sex, Price) :-
 	cosmetics(Cream, Ingrediant, Sex, Price),
 	(Cream=night_cream; Cream=day_cream).
+
+
+%Discount package initialization
 
 ask_customer_request :-
 	write('Enter Your preferred cream(day_cream, night_cream): '),
@@ -52,7 +68,7 @@ discount(yes) :-
 	buy_day_cream(true),
 	buy_body_lotion(true),
 	buy_shampoo(true),
-	Item==3.
+	Item>=3.
 	
 discount(no).
 
@@ -60,7 +76,7 @@ start_one:-
 	nl,
 	write('===Velora Product & Service ==='),nl,
 
-	write('Enter number of item which you buy : '),
+	write('Enter number of items which you buy : '),
 	read(Item),
 	assertz(buy_full_pacakage(Item)),
 
@@ -80,7 +96,7 @@ start_one:-
 	assertz(buy_shampoo(Shampoo)),nl,
 
 	%is full fill the requirement?
-	(Item==3, DayCream, BodyLotion, Shampoo ->
+	(Item>=3, DayCream, BodyLotion, Shampoo ->
 		write('You got thousand rupees discount. '), nl,
 
 		write('Total amount of the three item which you bought'),nl,
@@ -146,13 +162,15 @@ start_one:-
 		write('You are not eligible for our discount benifits. ')),nl,
 		
 	%Clean up dynamic facts
+
 	retractall(buy_full_package(_)),
 	retractall(buy_day_cream(_)),
 	retractall(buy_body_lotion(_)),
 	retractall(buy_shampoo(_)),
 
 	write('Thank you for shopping with Velora Products! ').
-	
+
+%Select the bodylotion type base on the skin type and gender	
 
 body_lotion(yes) :-
 	gender(Gender),
@@ -204,11 +222,11 @@ body_lotion_normal:-
 		(Gender == women, Normal ->
 			write('You can go with our Papaya Body Lotion of Velora Brand for women. '),nl
 		;
-			write('You can go with our Papaya Body Lotion of Velora Brand for men. ')),nl,
+			write('If you like you can buy our other products of Velora Brand. ')),nl,
 
 		(Gender == men, Normal ->
 			write('Addition to that Body Lotion.'),
-			write('You can go with our Papaya Body Lotion of Velora Brand for women. ')).
+			write('You can go with our Papaya Body Lotion of Velora Brand for men. ')).
 
 
 body_lotion_oily:-
@@ -229,20 +247,25 @@ body_lotion_oily:-
 		(Gender == women, Oily ->
 			write('You can go with our Cucumber Body Lotion of Velora Brand for women. '),nl
 		;
-			write('You can go with our Cucumber Body Lotion of Velora Brand for women. ')),nl,
+			write('If you like you can buy our other products of Velora Brand. ')),nl,
 	
 		(Gender == men, Oily ->
 			write('Addition to that Body Lotion.'),
-			write('You can go with our Cucumber Body Lotion of Velora Brand for women. ')).
+			write('You can go with our Cucumber Body Lotion of Velora Brand for men. ')).
+
+
 
 %Reccomend shampoo base on their hair type.
+
 recommend(Cleaner, Type, Sex, Price):-
 	cosmetics(Cleaner, Type, Sex, Price).
 
+
 %Recommend shampoo it they belong either Female or Male hair type
+
 recommend_shampoo(Cleaner, Type, Sex, Price):-
 	cosmetics(Cleaner, Type, Sex, Price),
-	(Type = hair_fall_rescue; Type = intense_repaire; Type = straight_and_silky; Type = nourshine_oil_care; Type = men_care_fresh_and_clean_fortifying; Type = men_care_anti_dandruff; Type = men_thick_and_strong_fortify; Type = acqua_impact_fortify).
+	(Type = hair_fall_rescue; Type = intense_repaire; Type = straight_and_silky; Type = nourshine_oil_care; Type = men_care_fresh; Type = men_care_anti_dandruff; Type = men_thick_and_strong_fortify; Type = acqua_impact_fortify).
 
 ask_customer_preferencess_one:-
 	write('Enter your prefered Shampoo (hair_fall_rescue, intense_repaire):'),
@@ -261,7 +284,7 @@ ask_customer_preferencess_two:-
 
 
 ask_customer_choice_one:-
-	write('Enter your prefered Shampoo(men_care_fresh_&_clean_fortifying, men_care_anti_dandruff) : '),
+	write('Enter your prefered Shampoo(men_care_fresh, men_care_anti_dandruff) : '),
 	read(Type),
 	recommend(Cleaner, Type, Sex, Price),
 	write('Your might like '), write(Type),write(' '),write(Cleaner),write(' for '),write(Sex),write(' of Velora Brand.'),nl,
@@ -275,7 +298,7 @@ ask_customer_choice_two:-
 	write('Your might like '), write(Type),write(' '),write(Cleaner),write(' for '),write(Sex),write(' of Velora Brand.'),nl,
 	write('Price : '), write(Price).
 
-
+%Calculate total amount the customer should pay for the products which they boughtas
 
 loop_from_to(Current, N, Total):-
 	Current =< N,
